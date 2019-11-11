@@ -1,0 +1,45 @@
+= Debezium and Quarkus
+
+== To Run
+
+In a new terminal:
+
+[source, shell-session]
+----
+cd it
+docker-compose up
+----
+
+When everything is up and running visit:
+
+* http://localhost:9000/ for Kafka inspector
+* http://localhost:9090/ for DB inspector (u/p: developer, db type: postgreSQL, db: mydb)
+
+In a new terminal:
+
+[source, shell-session]
+----
+cd user
+./mvnw compile quarkus:dev
+----
+
+In a new terminal configure debezium:
+
+[source, shell-session]
+----
+cd it
+http PUT http://localhost:8083/connectors/drinker-connector/config < register-postgres.json
+----
+
+Open swgger-ui console in a browser at http://localhost:8080/swagger-ui/ send a user registration using the `POST` method with a user with `age 20`, `email alex@example.com` and `name alex`.
+
+Finally if you do a `docker ps` takes the docker id of `adviser` container and you do a `docker logs <id>` you'll see log messages regarding the new user registration. 
+The message is coming from Debezium and Kafka.
+
+== To stop
+
+[source, shell-session]
+----
+docker-compose stop
+docker-compose rm
+----

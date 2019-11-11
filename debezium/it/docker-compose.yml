@@ -10,6 +10,13 @@ services:
       - POSTGRES_DB=mydb
       - POSTGRES_USER=developer
       - POSTGRES_PASSWORD=developer
+# Adminer UI
+  adminer:
+    image: adminer:4.7.4-standalone
+    ports:
+      - '9090:8080'
+    links:
+      - postgres
   
 # Install zookeeper. 
   zookeeper:
@@ -44,3 +51,22 @@ services:
       - BOOTSTRAP_SERVERS=kafka:9092
       - CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE=false
       - CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE=false
+
+# Kafka UI
+  kafdrop:
+    image: obsidiandynamics/kafdrop:3.14.0
+    ports:
+      - '9000:9000'
+    links:
+      - kafka
+    environment:
+      - KAFKA_BROKERCONNECT=kafka:9092
+      - SERVER_SERVLET_CONTEXTPATH=/
+
+# Adviser Service
+  adviser-service:
+    image: lordofthejars/adviser:1.0.0
+    ports:
+      - '8082:8080'
+    links:
+      - kafka

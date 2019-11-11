@@ -1,0 +1,11 @@
+{
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "tasks.max": "1",
+    "database.hostname": "postgres",
+    "database.port": "5432",
+    "database.user": "developer",
+    "database.password": "developer",
+    "database.dbname" : "mydb",
+    "database.server.name": "dbserver1",
+    "table.whitelist": "public.outbox"
+}

@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
-@Entity
+@Entity(name = "outbox")
 public class Outbox extends PanacheEntity {
 
     public Long aggregateId;
