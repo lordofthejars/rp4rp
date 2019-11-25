@@ -40,7 +40,7 @@ public class GreetingResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Publisher<Beer> getBeers() {
         return beerservice.beers()
-            .filter(b -> b.getAbv() > 10.0).take(10);
+            .filter(b -> b.getAbv() > 10.0).take(2);
     }
 
     @GET

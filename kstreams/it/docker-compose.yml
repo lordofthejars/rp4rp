@@ -1,0 +1,34 @@
+version: '2.1'
+
+services:
+
+  # Install zookeeper. 
+  zookeeper:
+    image: debezium/zookeeper:0.10
+    ports:
+      - '2181:2181'
+      - '2888:2888'
+      - '3888:3888'
+
+# Install kafka and create needed topics. 
+  kafka:
+    image: debezium/kafka:0.10 
+    ports:
+      - '9092:9092'
+    links:
+      - zookeeper
+    environment:
+      - ZOOKEEPER_CONNECT=zookeeper:2181
+      - ADVERTISED_HOST_NAME=192.168.1.219
+      - KAFKA_GROUP_MIN_SESSION_TIMEOUT_MS=250
+
+# Kafka UI
+  kafdrop:
+    image: obsidiandynamics/kafdrop:3.14.0
+    ports:
+      - '9000:9000'
+    links:
+      - kafka
+    environment:
+      - KAFKA_BROKERCONNECT=kafka:9092
+      - SERVER_SERVLET_CONTEXTPATH=/
