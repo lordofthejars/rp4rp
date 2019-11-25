@@ -12,8 +12,11 @@ public class PlayedSong {
     }
 
     public PlayedSong aggregate(String song) {
-        songName = song;
-        count++;
+    
+        this.songName = song;
+        this.count++;
+
+        System.out.println("++++ " + song + " * " + count);
 
         return this;
     }
@@ -24,6 +27,11 @@ public class PlayedSong {
 
     public int getCount() {
         return count;
+    }
+
+    @Override
+    public String toString() {
+        return "PlayedSong [count=" + count + ", songName=" + songName + "]";
     }
 
 }

@@ -56,7 +56,7 @@ public class PlaySongsGenerator {
     // Generate random plays
     @Outgoing("played-songs")
     public Flowable<KafkaMessage<Integer, String>> generatePlays() {
-        return Flowable.interval(1, TimeUnit.SECONDS)
+        return Flowable.interval(5, TimeUnit.SECONDS)
                 .onBackpressureDrop()
                 .map(tick ->{
                         final Song song = songs.get(random.nextInt(songs.size()));

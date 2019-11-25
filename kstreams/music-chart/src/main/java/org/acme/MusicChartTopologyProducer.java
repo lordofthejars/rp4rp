@@ -11,6 +11,7 @@ import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.GlobalKTable;
 import org.apache.kafka.streams.kstream.Materialized;
+import org.apache.kafka.streams.kstream.Printed;
 import org.apache.kafka.streams.kstream.Produced;
 import org.apache.kafka.streams.state.KeyValueBytesStoreSupplier;
 import org.apache.kafka.streams.state.Stores;
@@ -38,6 +39,8 @@ public class MusicChartTopologyProducer {
                 SONGS_TOPIC,
                 Consumed.with(Serdes.Integer(), songSerde));
 
+
+
         builder.stream(
             PLAYED_SONGS_TOPIC,
             Consumed.with(Serdes.Integer(), Serdes.String())
@@ -57,11 +60,10 @@ public class MusicChartTopologyProducer {
                     .withValueSerde(playedSongSerde)
         )
         .toStream()
-        .to(MUSIC_CHART_TOPIC,
-            Produced.with(Serdes.Integer(), playedSongSerde));
+        .print(Printed.toSysOut());
 
         return builder.build();
 
     }
-    
+
 }
