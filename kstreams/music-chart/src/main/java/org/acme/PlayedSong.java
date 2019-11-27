@@ -34,4 +34,12 @@ public class PlayedSong {
         return "PlayedSong [count=" + count + ", songName=" + songName + "]";
     }
 
+    public void setSongName(String songName) {
+        this.songName = songName;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
 }

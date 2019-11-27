@@ -1,12 +1,9 @@
 package org.acme;
 
 import java.util.List;
-import java.util.concurrent.CompletionStage;
 
 import javax.inject.Inject;
-import javax.json.JsonArray;
-import javax.json.JsonMergePatch;
-import javax.json.JsonObject;
+
 import javax.json.JsonValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -40,7 +37,7 @@ public class GreetingResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Publisher<Beer> getBeers() {
         return beerservice.beers()
-            .filter(b -> b.getAbv() > 10.0).take(2);
+            .filter(b -> b.getAbv() > 10.0);
     }
 
     @GET

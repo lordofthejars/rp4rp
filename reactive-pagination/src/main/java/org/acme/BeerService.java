@@ -5,7 +5,6 @@ import java.util.concurrent.CompletionStage;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.json.Json;
-import javax.json.JsonArray;
 import javax.json.JsonMergePatch;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
@@ -30,11 +29,8 @@ public class BeerService {
         System.out.println("Compare");
         final Flowable<JsonObject> beerAInfo = fromFuture(beerGateway.getBeer(beerA).toCompletableFuture())
                                                 .map(array -> array.get(0))
-                                                .map(this::filterContent)
-                                                .map(mapper -> {
-                                                    System.out.println(mapper);
-                                                    return mapper;
-                                                });
+                                                .map(this::filterContent);
+                                                
         final Flowable<JsonObject> beerBInfo = fromFuture(beerGateway.getBeer(beerB).toCompletableFuture())
                                                 .map(array -> array.get(0))
                                                 .map(this::filterContent);
@@ -59,6 +55,7 @@ public class BeerService {
         return jsonMergePatch.toJsonValue();
     }
 
+    /** Pagination Beers */
     public Flowable<Beer> beers() {
         Flowable<List<Beer>> beerStream = Flowable.generate(() -> 1, (page, emitter) -> {
 
