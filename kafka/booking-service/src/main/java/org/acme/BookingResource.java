@@ -22,6 +22,10 @@ import io.smallrye.reactive.messaging.annotations.Channel;
 public class BookingResource {
 
     @Inject
+    @Channel("billing")
+    Emitter<String> billing;
+
+    @Inject
     @Channel("booked")
     Emitter<String> bookings;
 
@@ -36,8 +40,8 @@ public class BookingResource {
     public Response bookFlightHttp(Booking booking) {
         booking = process(booking);
 
-        billingService.sendBilling(booking);
         planningService.sendPlan(booking);
+        billingService.sendBilling(booking.billing);
 
         return Response.ok(booking).build();
     }
@@ -47,6 +51,8 @@ public class BookingResource {
     public Response bookFlightKafka(Booking booking) {
         booking = process(booking);
         bookings.send(JsonbBuilder.create().toJson(booking));
+        billing.send(JsonbBuilder.create().toJson(booking.billing));
+
         return Response.ok(booking).build();
     }
 

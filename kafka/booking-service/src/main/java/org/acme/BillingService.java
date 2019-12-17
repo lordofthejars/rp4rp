@@ -13,6 +13,6 @@ public interface BillingService {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    void sendBilling(Booking billing);
+    void sendBilling(Billing billing);
 
 }

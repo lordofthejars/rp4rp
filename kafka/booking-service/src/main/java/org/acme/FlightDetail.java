@@ -3,28 +3,30 @@ package org.acme;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Airport {
+import javax.json.bind.annotation.JsonbDateFormat;
 
-    public String depart;
-    public String arrive;
+public class FlightDetail {
+
+    public String airport;
     public LocalDate date;
+
+    @JsonbDateFormat("HH:mm")
     public LocalTime time;
+    
     public String terminal;
 
-    public Airport(String depart, String arrive, LocalDate date, LocalTime time, String terminal) {
-        this.depart = depart;
-        this.arrive = arrive;
+    public FlightDetail() {
+    }
+
+    public FlightDetail(String airport, LocalDate date, LocalTime time, String terminal) {
+        this.airport = airport;
         this.date = date;
         this.time = time;
         this.terminal = terminal;
     }
 
-    public String getDepart() {
-        return depart;
-    }
-
-    public String getArrive() {
-        return arrive;
+    public String getAirport() {
+        return airport;
     }
 
     public LocalDate getDate() {
