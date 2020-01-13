@@ -1,6 +1,7 @@
 package org.acme;
 
 import java.util.UUID;
+import java.util.concurrent.CompletionStage;
 
 import javax.inject.Inject;
 import javax.json.bind.JsonbBuilder;
@@ -26,7 +27,7 @@ public class BookingResource {
     Emitter<String> billing;
 
     @Inject
-    @Channel("booked")
+    @Channel("itinerary")
     Emitter<String> bookings;
 
     @RestClient
