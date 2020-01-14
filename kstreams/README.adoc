@@ -1,0 +1,33 @@
+= Kafka Streams and Quarkus
+
+== To Run
+
+In a new terminal:
+
+----
+cd it
+docker-compose up
+----
+
+In a new terminal:
+
+----
+cd player-app
+./mvnw compile quarkus:dev
+----
+
+In a new terminal:
+
+----
+cd music-chart
+./mvnw compile quarkus:dev
+----
+
+Inspect the console to see how songs are played and in chart service how the times that a song is played is printed.
+
+== To stop
+
+----
+docker-compose stop
+docker-compose rm
+----
